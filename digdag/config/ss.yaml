@@ -1,6 +1,7 @@
 in:
   type: google_spreadsheets
   auth_method: service_account
+  # json_keyfile: service_account.json
   json_keyfile: ${GOOGLE_APPLICATION_CREDENTIALS}
   spreadsheets_url: https://docs.google.com/spreadsheets/d/1EvMJBRvsphQXxEisC52xKcFgqtnQ7C4vlo9GQzlZRQ4/edit?gid=0#gid=0
   worksheet_title: シート1
