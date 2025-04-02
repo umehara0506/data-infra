@@ -1,0 +1,9 @@
+services:
+  digdag:
+    container_name: digdag
+    build: ./digdag
+    tty: true
+    volumes:
+      - ./digdag/service_account.json:/app/service_account.json:ro
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/service_account.json

@@ -1,0 +1,32 @@
+in:
+  type: google_spreadsheets
+  auth_method: service_account
+  json_keyfile: service_account.json
+  spreadsheets_url: https://docs.google.com/spreadsheets/d/1EvMJBRvsphQXxEisC52xKcFgqtnQ7C4vlo9GQzlZRQ4/edit?gid=0#gid=0
+  worksheet_title: シート1
+  start_row: 2
+  default_timezone: 'Asia/Tokyo'
+  null_string: '\N'
+  default_typecast: strict
+  columns:
+    - {name: CustomerID, type: long}
+    - {name: CustomerName, type: string}
+    - {name: Email, type: string}
+filters:
+  - type: column
+    add_columns:
+      - {name: created_at, type: timestamp, default: '20160101', format: "%Y%m%d" }
+  - type: eval
+    eval_columns:
+     - created_at: Time.now
+# out:
+#   type: stdout
+out:
+  type: bigquery
+  mode: append
+  auth_method: service_account
+  json_keyfile: service_account.json
+  project: linear-enigma-289302
+  dataset: digdag
+  table: customers
+  source_format: CSV

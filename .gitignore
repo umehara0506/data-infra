@@ -1,0 +1,3 @@
+.venv/
+.DS_Store
+service_account.json
