@@ -4,12 +4,17 @@ _export:
   bq:
     dataset: digdag
 
-+table_definition:
-  +create_table:
-    bq>: query/create_table.sql
-  +update_table:
-    sh>: embulk run config/create_table_definition.yaml
+# +table_definition:
+#   +create_table:
+#     bq>: query/create_table.sql
+#   +update_table:
+#     sh>: embulk run config/create_table_definition.yaml
 
++echo:
+  echo>: "start digdag"
+
++embulk:
+  embulk>: config/ss.yml
 
 # +for_each_table:
 #   bq>: query/for_each.sql

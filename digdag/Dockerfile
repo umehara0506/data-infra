@@ -20,7 +20,7 @@ RUN curl --create-dirs -o ~/.embulk/bin/embulk -L "https://github.com/embulk/emb
 
 
 # install Ruby gems
-COPY ./embulk.properties /root/.embulk/embulk.properties
+COPY ./config/embulk.properties /root/.embulk/embulk.properties
 RUN java -jar ~/.embulk/bin/embulk gem install embulk -v 0.11.5
 
 # install embulk plugins
@@ -29,6 +29,7 @@ RUN java -jar ~/.embulk/bin/embulk gem install embulk-input-google_spreadsheets 
 RUN java -jar ~/.embulk/bin/embulk gem install embulk-output-google_spreadsheets --no-document
 RUN java -jar ~/.embulk/bin/embulk gem install embulk-filter-column --no-document
 RUN java -jar ~/.embulk/bin/embulk gem install embulk-filter-eval --no-document
+RUN java -jar ~/.embulk/bin/embulk gem install liquid -v 4.0.0 --no-document
 
 
 # install digdag
@@ -40,7 +41,8 @@ RUN curl -o /usr/local/bin/digdag --create-dirs -L "https://dl.digdag.io/digdag-
 RUN . ~/.bashrc
 
 WORKDIR /work
-COPY ./ ./
+COPY ./workflows/ ./
+COPY ./secrets/ ./secrets/
 
 
 

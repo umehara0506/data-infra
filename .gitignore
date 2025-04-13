@@ -1,3 +1,5 @@
 .venv/
 .DS_Store
 service_account.json
+.digdag/
+service_account.json
