@@ -1,5 +1,5 @@
 # EmBulkの実行にはJavaが必要なため、Javaが含まれているベースイメージを使用します
-FROM openjdk:8-slim
+FROM openjdk:11-slim
 
 # 作業ディレクトリを設定します
 WORKDIR /usr/src/app
@@ -41,7 +41,7 @@ RUN curl -o /usr/local/bin/digdag --create-dirs -L "https://dl.digdag.io/digdag-
 RUN . ~/.bashrc
 
 WORKDIR /work
-COPY ./workflows/ ./
+COPY ./ ./
 COPY ./secrets/ ./secrets/
 
 

@@ -1,0 +1,16 @@
+timezone: "Asia/Tokyo"
+
+schedule:
+  daily>: 11:36:00
+  # minutes_interval>: 2
+
+_export:
+  bq:
+    location: asia-northeast1
+    dataset: digdag
+
++echo:
+  echo>: "start digdag"
+
++bq:
+  bq>: queries/select.sql

@@ -1,0 +1,30 @@
+timezone: Asia/Tokyo
+
+_export:
+  string_date: '2025-03-01'
+  
++today:
+  echo>: "today: ${moment(session_date)}"
+  # 2025-03-20T15:00:00.000Z
++today_format:
+  echo>: "today_format: ${moment(session_date).format()}"
+  # 2025-03-21T00:00:00+09:00
++yesterday:
+  echo>: "yesterday: ${moment(session_date).add(-1, 'd')}"
+  # 2025-03-19T15:00:00.000Z
++yesterday_format:
+  echo>: "yesterday_format: ${moment(session_date).add(-1, 'd').format()}"
+  # 2025-03-20T00:00:00+09:00
++today_unix:
+  echo>: "today_unix: ${moment(session_date).unix()}}"
+  # 1742482800
++string_date_moment:
+  echo>: "string_date_moment: ${moment(string_date)}"
++string_date_format:
+  echo>: "string_date_format: ${moment(string_date).format()}"
+# addの戻り値はtextなのでエラーになる
+# +yesterday_unix:
+#   echo>: "yesterday: ${moment(session_date).add(-1, 'd').unix()}"
+# TypeError
+# +yesterday_format_unix:
+#   echo>: "yesterday_format: ${moment(session_date).add(-1, 'd').format().unix()}"

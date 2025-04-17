@@ -1,0 +1,39 @@
+timezone: "Asia/Tokyo"
+
+schedule:
+  daily>: 11:36:00
+  # minutes_interval>: 2
+
+_export:
+  short_date: ${moment(session_date).format('YYYYMMDD')}
+  bq:
+    dataset: digdag
+  ss:
+    url: "https://docs.google.com/spreadsheets/d/1EvMJBRvsphQXxEisC52xKcFgqtnQ7C4vlo9GQzlZRQ4/edit?gid=0#gid=0"
+  # credential_path: "/Users/umehara-katsuya/myfile/study/programming/data-infra/digdag/secrets/service_account.json" # local
+  credential_path: "/work/secrets/service_account.json" # local
+  # credential_path: ${secret:gcp.credential_path}
+
++check_session_date:
+  echo>: "suffix: ${short_date}"
+
++update_definision_table:
+  sh>: java -jar ~/.embulk/bin/embulk run embulk/ss_update.yml.liquid
+  _env:
+    ss_url: ${ss.url}
+    ss_worksheet_title: definitions
+    bq_dataset: ${bq.dataset}
+    bq_table_name: definitions
+
++update:
+  sh>: java -jar ~/.embulk/bin/embulk run embulk/ss_update.yml.liquid
+  _env:
+    ss_url: ${ss.url}
+    ss_worksheet_title: シート1
+    bq_dataset: ${bq.dataset}
+    bq_table_name: customers
+    # bq_table_name: customers_${short_date}
+
+
+# +embulk:
+#   embulk>: config/ss.yml

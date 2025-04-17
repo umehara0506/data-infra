@@ -1,0 +1,39 @@
+in:
+  type: google_spreadsheets
+  auth_method: service_account
+  # json_keyfile: /Users/umehara-katsuya/myfile/study/programming/data-infra/digdag/secrets/service_account.json
+  # json_keyfile: /work/secrets/service_account.json
+  json_keyfile: {{ env.credential_path }}
+  spreadsheets_url: {{ env.ss_url }}
+  worksheet_title: {{ env.ss_worksheet_title}}
+  start_row: 2
+  default_timezone: 'Asia/Tokyo'
+  null_string: '\N'
+  default_typecast: strict
+  columns:
+    - {name: CustomerID, type: string}
+    - {name: CustomerName, type: string}
+    - {name: Email, type: string}
+filters:
+  - type: column
+    add_columns:
+      - {name: created_at, type: timestamp, default: '20160101', format: "%Y%m%d" }
+  - type: eval
+    eval_columns:
+     - created_at: Time.now
+out:
+  type: bigquery
+  mode: replace
+  auth_method: service_account
+  # json_keyfile: /Users/umehara-katsuya/myfile/study/programming/data-infra/digdag/secrets/service_account.json
+  # json_keyfile: /work/secrets/service_account.json
+  json_keyfile: {{ env.credential_path }}
+  project: linear-enigma-289302
+  dataset: {{ env.bq_dataset }}
+  {%if env.bq_table_name == "definitions" %}
+  table: {{ env.bq_table_name }}
+  {% else %}
+  table: {{ env.bq_table_name }}_{{ env.short_date}}
+  {% endif %}
+  source_format: CSV
+

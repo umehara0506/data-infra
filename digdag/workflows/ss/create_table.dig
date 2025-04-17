@@ -1,0 +1,11 @@
+timezone: "Asia/Tokyo"
+
+_export:
+  bq:
+    dataset: digdag
+
++echo:
+  echo>: "start digdag"
+
++echo2:
+  bq>: queries/create_table.sql

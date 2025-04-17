@@ -18,6 +18,15 @@ GRANT ALL PRIVILEGES ON DATABASE digdag_db TO digdag_user;
 
 ```
 
+
+ ```
+ # update
+ gcloud compute scp --project "linear-enigma-289302" --zone "us-central1-c" --recurse ./digdag umehara-katsuya@instance-20250320-074925:/home/umehara-katsuya
+
+ # ssh接続
+ gcloud compute ssh --zone "us-central1-c" "instance-20250320-074925" --project "linear-enigma-289302"
+ ```
+
 # Digdagのプラグイン
 [digdag-slack](https://github.com/szyn/digdag-slack)
 

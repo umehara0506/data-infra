@@ -3,6 +3,9 @@ services:
     container_name: digdag
     build: ./digdag
     tty: true
+    ports:
+      - "65433:65433"
+      - "65434:65434"
     volumes:
       - ./digdag/service_account.json:/app/service_account.json:ro
     environment:
